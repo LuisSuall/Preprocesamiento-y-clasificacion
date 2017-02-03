@@ -1,0 +1,35 @@
+---
+title: 'datCom-2017: Analisis'
+output:
+  html_document: default
+  html_notebook: default
+---
+
+## Primeros resultados estadisticos
+
+```{r}
+library(readr)
+accidentes_kaggle <- read.csv("./data/accidentes-kaggle.csv")
+accidentes_kaggle_test <- read.csv("./data/accidentes-kaggle-test.csv")
+str(accidentes_kaggle)
+```
+
+```{r}
+summary(accidentes_kaggle)
+```
+
+## Construcción de modelo
+```{r}
+colnames(accidentes_kaggle)[apply(accidentes_kaggle,2, function(x) any(is.na(x)))]
+colnames(accidentes_kaggle_test)[apply(accidentes_kaggle_test,2, function(x) any(is.na(x)))]
+```
+
+```{r}
+library(randomForest)
+
+fit <- randomForest(TIPO_ACCIDENTE ~ LUMINOSIDAD+PROVINCIA+COMUNIDAD_AUTONOMA+TOT_VICTIMAS+TOT_MUERTOS, data = accidentes_kaggle, ntree = 100)
+prediction <- predict(fit, accidentes_kaggle_test)
+submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
+write.csv(submission.df,"./submission.csv", quote = FALSE, row.names = FALSE)
+```
+
