@@ -10,6 +10,9 @@ output:
 ```{r}
 library(readr)
 accidentes_kaggle <- read.csv("./data/accidentes-kaggle.csv")
+accidentes_kaggle$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle$HORA)))
+levels(accidentes_kaggle$MES) <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
+levels(accidentes_kaggle$DIASEMANA) <- c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO")
 accidentes_kaggle_test <- read.csv("./data/accidentes-kaggle-test.csv")
 str(accidentes_kaggle)
 ```
@@ -17,11 +20,40 @@ str(accidentes_kaggle)
 ```{r}
 summary(accidentes_kaggle)
 ```
+```{r}
+sum(is.na(accidentes_kaggle$ACERAS)&&accidentes_kaggle$ZONA_AGRUPADA=="VIAS URBANAS")
+```
 
-## Construcci�n de modelo
+## Visualización de datos
+
+```{r}
+library(ggplot2)
+
+ggplot(data=accidentes_kaggle, aes(x=DIASEMANA))+
+  geom_bar(aes(fill=TIPO_ACCIDENTE))
+```
+
+```{r}
+ggplot(data=accidentes_kaggle, aes(x=LUMINOSIDAD))+
+  geom_bar(aes(fill=TIPO_ACCIDENTE))
+```
+
+
+## Construcción de modelo
 ```{r}
 colnames(accidentes_kaggle)[apply(accidentes_kaggle,2, function(x) any(is.na(x)))]
 colnames(accidentes_kaggle_test)[apply(accidentes_kaggle_test,2, function(x) any(is.na(x)))]
+```
+```{r}
+accidentes_kaggle[is.na(accidentes_kaggle$CARRETERA)&&accidentes_kaggle$ZONA_AGRUPADA=="VIAS INTERURBANAS",1]
+```
+
+```{r}
+levels(accidentes_kaggle$CARRETERA) <- c(levels(accidentes_kaggle$CARRETERA),"DESCONOCIDO")
+accidentes_kaggle$CARRETERA[is.na(accidentes_kaggle$CARRETERA)] <- "DESCONOCIDO"
+
+levels(accidentes_kaggle$ACOND_CALZADA) <- c(levels(accidentes_kaggle$ACOND_CALZADA),"DESCONOCIDO")
+accidentes_kaggle$ACOND_CALZADA[is.na(accidentes_kaggle$ACOND_CALZADA)] <- "DESCONOCIDO"
 ```
 
 ```{r}
