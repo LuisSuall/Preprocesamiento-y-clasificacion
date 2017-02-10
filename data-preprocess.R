@@ -13,7 +13,7 @@ accidentes_kaggle <- accidentes_kaggle_raw
 accidentes_kaggle$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle$HORA)))
 
 accidentes_kaggle_test <- accidentes_kaggle_test_raw
-accidentes_kaggle_test$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle$HORA)))
+accidentes_kaggle_test$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle_test$HORA)))
 
 # Order "MES" and "DIASEMANA" attributes
 levels(accidentes_kaggle$MES) <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
