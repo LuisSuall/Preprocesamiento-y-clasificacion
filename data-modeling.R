@@ -1,6 +1,10 @@
 library(caret)
 library(xgboost)
 
+###############
+### XGBoost ###
+###############
+
 tr.Control <- trainControl(method = "repeatedcv", 
                            number = 5, 
                            repeats = 1,
@@ -27,4 +31,24 @@ Tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux,
 prediction <- predict(Tune, accidentes_kaggle_test_redux)
 
 submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
-write.csv(submission.df,"./submission-xgb2.csv", quote = FALSE, row.names = FALSE)
+write.csv(submission.df,"./submission-xgb.csv", quote = FALSE, row.names = FALSE)
+
+#####################
+### Random Forest ###
+#####################
+
+library(randomForest)
+
+#rf.Grid <- expand.grid()
+
+rf.tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
+                 method = "rf",
+                 trControl = tr.Control,
+                 tuneLength=10,
+                 ntree = 50,
+                 verbose = TRUE )
+
+prediction <- predict(rf.tune, accidentes_kaggle_test_redux)
+
+submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
+write.csv(submission.df,"./submission-rf.csv", quote = FALSE, row.names = FALSE)
