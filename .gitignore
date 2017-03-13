@@ -37,3 +37,11 @@ vignettes/*.pdf
 
 # Data
 *.csv
+
+# tex
+*.aux
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc

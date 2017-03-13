@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt,spanish]{article}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\begin{document}
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Preprocesamiento y clasificación}\\[1.0cm] % Name of your university/college
+\textsc{\Large Trabajo final}\\[0.5cm] % Major heading such as course name
+\textsc{\large Memoria de la competición en Kaggle}\\[0.5cm] % Minor heading such as course title
+
+
+
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+\HRule
+\vspace{2cm}
+
+\begin{minipage}{1\textwidth}
+\begin{flushleft} \small
+Luis Suárez Lloréns\\
+luissuarez@correo.ugr.es\\
+Máster Universitario Oficial en Ciencia de Datos e Ingeniería de Computadores
+\end{flushleft}
+\end{minipage}
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Introducción}
+
+Esta memoria, consiste en resumir el trabajo realizado en la competición interna en Kaggle. 
+
+En este caso, el conjunto de datos utilizado contiene ejemplos de accidentes de tráfico. El objetivo es utilizar la información de la condición, localización y resultados de un accidente y clasificarlo dentro de algún tipo de accidente.
+
+Vamos a dividir el trabajo en dos grandes secciones. La primera contendrá de manera resumida el proceso de generación del modelo final, pasando por todos los intentos y pruebas realizados en el camino.
+\section{Proceso de trabajo}
+
+\subsection{Entrega 1}
+
+Entrega de prueba. Se toman 5 columnas sin valores perdidos del conjunto de datos y se utiliza un modelo de tipo 'Random Forest'. Entrega para comprobar que el proceso de subir resultados funciona correctamente.
+
+\subsection{Entrega 2}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Tratamiento básico de los valores perdidos. Primero, añadimos una columna booleana por cada columna con datos perdidos que almacena si hemos imputado el dato o si ya se tenía en la base de datos original. Después, imputamos a mano, añadiendo el elemento más común. Eliminamos las columnas.... \todo{Añadir datos concretos}
+\item \textbf{Selección de modelo:} Usamos un modelo XGBoost. Para seleccionar los hiperparámetros, realizamos una validación cruzada de 5 bloques. Los parámetros explorados son... \todo{Añadir datos concretos}
+\end{itemize}
+
+\subsection{Entrega 3}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} El mismo de la entrega 2.
+\item \textbf{Selección de modelo:} En este caso, utilizamos un Random Forest. Para la selección de hiperparámetros, se utiliza igualmente una validación cruzada de 5 bloques. Los parámetros...\todo{Añadir más datos}
+\end{itemize}
+\section{Resultados}
+
+\end{document}
