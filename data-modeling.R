@@ -39,16 +39,24 @@ write.csv(submission.df,"./submission-xgb.csv", quote = FALSE, row.names = FALSE
 
 library(randomForest)
 
-#rf.Grid <- expand.grid()
+rf.Grid <- expand.grid(.mtry=seq(2,42,4))
 
-rf.tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
-                 method = "rf",
-                 trControl = tr.Control,
-                 tuneLength=10,
-                 ntree = 50,
-                 verbose = TRUE )
+tune.model.list <- list()
 
-prediction <- predict(rf.tune, accidentes_kaggle_test_redux)
+for(ntree in c(10,25,seq(50,200,50),seq(300,500,100))){
+  print(ntree)
+  rf.tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
+                   method = "rf",
+                   trControl = tr.Control,
+                   tuneGrid = rf.Grid,
+                   ntree = ntree,
+                   verbose = TRUE )
+  tune.model.list[[toString(ntree)]] <- rf.tune
+}
+
+#prediction <- predict(rf.tune, accidentes_kaggle_test_redux)
+
+rf.tune <- tune.model.list[7]
 
 submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
 write.csv(submission.df,"./submission-rf.csv", quote = FALSE, row.names = FALSE)
