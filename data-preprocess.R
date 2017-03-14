@@ -32,6 +32,11 @@ accidentes_kaggle_test$DIASEMANA <-factor(weekday, levels = c("LUNES","MARTES","
 
 rm(months)
 rm(weekday)
+
+# Adding "HIERRO" level to "accidentes_kaggle$ISLA"
+islas <- as.character(accidentes_kaggle$ISLA)
+accidentes_kaggle$ISLA <- factor(islas, levels = levels(accidentes_kaggle_test$ISLA))
+
 ###############################
 ##### Feature Engineering #####
 ###############################
