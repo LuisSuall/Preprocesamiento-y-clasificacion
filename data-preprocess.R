@@ -22,6 +22,23 @@ levels(accidentes_kaggle$DIASEMANA) <- c("LUNES","MARTES","MIERCOLES","JUEVES","
 levels(accidentes_kaggle_test$MES) <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
 levels(accidentes_kaggle_test$DIASEMANA) <- c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO")
 
+###############################
+##### Feature Engineering #####
+###############################
+
+# Rates
+
+accidentes_kaggle$RAT_MUERTOS_VICTIMAS <- accidentes_kaggle$TOT_MUERTOS/accidentes_kaggle$TOT_VICTIMAS
+accidentes_kaggle$RAT_HERIDOSGRAVES_VICTIMAS <- accidentes_kaggle$TOT_HERIDOS_GRAVES/accidentes_kaggle$TOT_VICTIMAS
+accidentes_kaggle$RAT_HERIDOSLEVES_VICTIMAS <- accidentes_kaggle$TOT_HERIDOS_LEVES/accidentes_kaggle$TOT_VICTIMAS
+accidentes_kaggle$RAT_VEHICULOS_VICTIMAS <- accidentes_kaggle$TOT_VEHICULOS_IMPLICADOS/accidentes_kaggle$TOT_VICTIMAS
+
+accidentes_kaggle_test$RAT_MUERTOS_VICTIMAS <- accidentes_kaggle_test$TOT_MUERTOS/accidentes_kaggle_test$TOT_VICTIMAS
+accidentes_kaggle_test$RAT_HERIDOSGRAVES_VICTIMAS <- accidentes_kaggle_test$TOT_HERIDOS_GRAVES/accidentes_kaggle_test$TOT_VICTIMAS
+accidentes_kaggle_test$RAT_HERIDOSLEVES_VICTIMAS <- accidentes_kaggle_test$TOT_HERIDOS_LEVES/accidentes_kaggle_test$TOT_VICTIMAS
+accidentes_kaggle_test$RAT_VEHICULOS_VICTIMAS <- accidentes_kaggle_test$TOT_VEHICULOS_IMPLICADOS/accidentes_kaggle_test$TOT_VICTIMAS
+
+
 #################################
 ##### Deal with NA's values #####
 #################################
