@@ -8,6 +8,10 @@ library(readr)
 accidentes_kaggle_raw <- read.csv("./data/accidentes-kaggle.csv")
 accidentes_kaggle_test_raw <- read.csv("./data/accidentes-kaggle-test.csv")
 
+#######################
+##### Basic stuff #####
+#######################
+
 # Set "HORA" attribute to numeric
 accidentes_kaggle <- accidentes_kaggle_raw
 accidentes_kaggle$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle$HORA)))
@@ -16,12 +20,18 @@ accidentes_kaggle_test <- accidentes_kaggle_test_raw
 accidentes_kaggle_test$HORA <- as.numeric(sub(",",".",as.character(accidentes_kaggle_test$HORA)))
 
 # Order "MES" and "DIASEMANA" attributes
-levels(accidentes_kaggle$MES) <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
-levels(accidentes_kaggle$DIASEMANA) <- c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO")
+months <- as.character(accidentes_kaggle$MES)
+accidentes_kaggle$MES <-factor(months,levels = c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"))
+weekday <- as.character(accidentes_kaggle$DIASEMANA)
+accidentes_kaggle$DIASEMANA <-factor(weekday, levels = c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO"))
 
-levels(accidentes_kaggle_test$MES) <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
-levels(accidentes_kaggle_test$DIASEMANA) <- c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO")
+months <- as.character(accidentes_kaggle_test$MES)
+accidentes_kaggle_test$MES <-factor(months,levels = c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"))
+weekday <- as.character(accidentes_kaggle_test$DIASEMANA)
+accidentes_kaggle_test$DIASEMANA <-factor(weekday, levels = c("LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO"))
 
+rm(months)
+rm(weekday)
 ###############################
 ##### Feature Engineering #####
 ###############################
