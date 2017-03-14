@@ -38,6 +38,15 @@ accidentes_kaggle_test$RAT_HERIDOSGRAVES_VICTIMAS <- accidentes_kaggle_test$TOT_
 accidentes_kaggle_test$RAT_HERIDOSLEVES_VICTIMAS <- accidentes_kaggle_test$TOT_HERIDOS_LEVES/accidentes_kaggle_test$TOT_VICTIMAS
 accidentes_kaggle_test$RAT_VEHICULOS_VICTIMAS <- accidentes_kaggle_test$TOT_VEHICULOS_IMPLICADOS/accidentes_kaggle_test$TOT_VICTIMAS
 
+# Accident blackspots
+
+threshold <- 50
+road_count <- sort(table(accidentes_kaggle$CARRETERA), decreasing = TRUE)
+road_count <- road_count[road_count>threshold]
+blackspot_road_name <- names(road_count)
+
+accidentes_kaggle$ACCIDENT_BLACKSPOT <- accidentes_kaggle$CARRETERA %in% blackspot_road_name
+accidentes_kaggle_test$ACCIDENT_BLACKSPOT <- accidentes_kaggle_test$CARRETERA %in% blackspot_road_name
 
 #################################
 ##### Deal with NA's values #####
