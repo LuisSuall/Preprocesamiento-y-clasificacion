@@ -37,6 +37,8 @@ rm(weekday)
 islas <- as.character(accidentes_kaggle$ISLA)
 accidentes_kaggle$ISLA <- factor(islas, levels = levels(accidentes_kaggle_test$ISLA))
 
+rm(islas)
+
 ###############################
 ##### Feature Engineering #####
 ###############################

@@ -19,8 +19,8 @@ tr.Grid <- expand.grid(
                         subsample = 1
 )
 
-accidentes_kaggle_redux <- accidentes_kaggle[,-c(7,15)]
-accidentes_kaggle_test_redux <- accidentes_kaggle_test[,-c(7,15)]
+accidentes_kaggle_redux <- accidentes_kaggle[,-c(15)]
+accidentes_kaggle_test_redux <- accidentes_kaggle_test[,-c(15)]
 
 Tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
               method = "xgbTree",
@@ -39,11 +39,11 @@ write.csv(submission.df,"./submission-xgb.csv", quote = FALSE, row.names = FALSE
 
 library(randomForest)
 
-rf.Grid <- expand.grid(.mtry=seq(2,42,4))
+rf.Grid <- expand.grid(.mtry=seq(16,20,1))
 
 tune.model.list <- list()
 
-for(ntree in c(10,25,seq(50,200,50),seq(300,500,100))){
+for(ntree in c(300)){
   print(ntree)
   rf.tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
                    method = "rf",

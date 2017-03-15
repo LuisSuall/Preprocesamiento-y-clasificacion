@@ -111,13 +111,28 @@ Entrega de prueba. Se toman 5 columnas sin valores perdidos del conjunto de dato
 \subsection{Entrega 2}
 \begin{itemize}
 \item \textbf{Preprocesamiento:} Tratamiento básico de los valores perdidos. Primero, añadimos una columna booleana por cada columna con datos perdidos que almacena si hemos imputado el dato o si ya se tenía en la base de datos original. Después, imputamos a mano, añadiendo el elemento más común. Eliminamos las columnas.... \todo{Añadir datos concretos}
-\item \textbf{Selección de modelo:} Usamos un modelo XGBoost. Para seleccionar los hiperparámetros, realizamos una validación cruzada de 5 bloques. Los parámetros explorados son... \todo{Añadir datos concretos}
+\item \textbf{Selección de modelo:} Usamos un modelo XGBoost. Para seleccionar los hiperparámetros, realizamos una validación cruzada de 5 bloques. Los parámetros explorados son... \todo{Añadir datos concretos}. El mejor resultado --- con hiperparámetros nrounds = 10, max_depth = 6, eta = 0.01, gamma = 1, colsample_bytree =
+ 1, min_child_weight = 1 y subsample = 1--- obtuvo un accuracy de 0.8280115 en la validación cruzada.
+\item \textbf{Resultado en Kaggle público:}
 \end{itemize}
 
 \subsection{Entrega 3}
 \begin{itemize}
 \item \textbf{Preprocesamiento:} El mismo de la entrega 2.
-\item \textbf{Selección de modelo:} En este caso, utilizamos un Random Forest. Para la selección de hiperparámetros, se utiliza igualmente una validación cruzada de 5 bloques. Los parámetros...\todo{Añadir más datos}
+\item \textbf{Selección de modelo:} En este caso, utilizamos un Random Forest. Para la selección de hiperparámetros, se utiliza igualmente una validación cruzada de 5 bloques. Los parámetros...\todo{Añadir más datos}. El mejor resultado --- con hiperparámetros ntree = 300 y mtry = 18 --- obtuvo un accuracy de 0.8308112 en la validación cruzada.
+\item \textbf{Resultado en Kaggle público:}
+
+\subsection{Entrega 4}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Basado en la entrega 2. Se arregla el problema con la variable "ISLA", que pasa a poder usarse. Se arregla un pequeño bug que modificó las etiquetas de los meses del año y los días. Se añaden ratios relativos al número de muertos, heridos graves, heridos leves y vehículos implicados por víctima.
+\item \textbf{Selección de modelo:} Utiliza un modelo Random Forest, pero con menos hiperparámetros que en la entrega 3, centrándonos en la zona de mejores resultados, con el objetivo de poder evaluar rápidamente los diferentes preprocesamientos que se aplican en las siguientes entregas. El mejor resultado obtuvo un accuracy de .... en la validación cruzada.
+\item \textbf{Resultado en Kaggle público:}
+
+\subsection{Entrega 5}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} El mismo de la entrega 2.
+\item \textbf{Selección de modelo:} Igual que en entrega 4. El mejor resultado obtuvo un accuracy de .... en la validación cruzada.
+\item \textbf{Resultado en Kaggle público:}
 \end{itemize}
 \section{Resultados}
 
