@@ -54,9 +54,11 @@ for(ntree in c(300)){
   tune.model.list[[toString(ntree)]] <- rf.tune
 }
 
-#prediction <- predict(rf.tune, accidentes_kaggle_test_redux)
+rf.tune <- tune.model.list[1]
 
-rf.tune <- tune.model.list[7]
+prediction <- predict(rf.tune, accidentes_kaggle_test_redux)
 
 submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
+colnames(submission.df) <- c("Id","Prediction")
 write.csv(submission.df,"./submission-rf.csv", quote = FALSE, row.names = FALSE)
+ 
