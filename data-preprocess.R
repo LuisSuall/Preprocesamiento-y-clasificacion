@@ -65,6 +65,32 @@ blackspot_road_name <- names(road_count)
 accidentes_kaggle$ACCIDENT_BLACKSPOT <- accidentes_kaggle$CARRETERA %in% blackspot_road_name
 accidentes_kaggle_test$ACCIDENT_BLACKSPOT <- accidentes_kaggle_test$CARRETERA %in% blackspot_road_name
 
+# Day segment
+
+GetDaySegment <- function(hour){
+  if(7<=hour & hour<13){
+    day.segment <- "MANIANA"
+  }
+  else if(13<=hour &hour<19){
+    day.segment <- "TARDE"
+  }
+  else if(19<=hour | hour < 1){
+    day.segment <- "NOCHE"
+  }
+  else{
+    day.segment <- "MADRUGADA"
+  }
+  
+  return(day.segment)
+    
+}
+
+train.day.segment <- sapply(accidentes_kaggle$HORA,GetDaySegment)
+accidentes_kaggle$SEGMENTO.DIA <- factor(train.day.segment, levels = c("MANIANA","TARDE","NOCHE","MADRUGADA"))
+
+test.day.segment <- sapply(accidentes_kaggle_test$HORA,GetDaySegment)
+accidentes_kaggle_test$SEGMENTO.DIA <- factor(test.day.segment, levels = c("MANIANA","TARDE","NOCHE","MADRUGADA"))
+
 #################################
 ##### Deal with NA's values #####
 #################################
