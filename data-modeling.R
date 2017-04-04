@@ -10,17 +10,17 @@ tr.Control <- trainControl(method = "repeatedcv",
                            repeats = 1,
                            verboseIter = TRUE)
 tr.Grid <- expand.grid(
-                        nrounds = c(1,10,25),
-                        eta = c(0.01, 0.001, 0.0001),
-                        max_depth = c(2, 4, 6, 8, 10),
-                        gamma = 1,
-                        colsample_bytree = 1,
-                        min_child_weight = 1,
+                        nrounds = c(1,10,25,50,100,300),
+                        eta = c(0.03, 0.15, 0.3),
+                        max_depth = c(6, 8, 10),
+                        gamma = c(1,0.5),
+                        colsample_bytree = c(0.5,0.75,1),
+                        min_child_weight = c(1,0.1),
                         subsample = 1
 )
 
-accidentes_kaggle_redux <- accidentes_kaggle[,-c(15)]
-accidentes_kaggle_test_redux <- accidentes_kaggle_test[,-c(15)]
+accidentes_kaggle_redux <- accidentes_kaggle # [,-c(15)] to remove CARRETERA
+accidentes_kaggle_test_redux <- accidentes_kaggle_test # [,-c(15)] to remove CARRETERA
 
 Tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
               method = "xgbTree",
@@ -31,6 +31,8 @@ Tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux,
 prediction <- predict(Tune, accidentes_kaggle_test_redux)
 
 submission.df <- data.frame(Id=1:nrow(accidentes_kaggle_test),Prediction=prediction)
+colnames(submission.df) <- c("Id","Prediction")
+
 write.csv(submission.df,"./submission-xgb.csv", quote = FALSE, row.names = FALSE)
 
 #####################
@@ -39,11 +41,11 @@ write.csv(submission.df,"./submission-xgb.csv", quote = FALSE, row.names = FALSE
 
 library(randomForest)
 
-rf.Grid <- expand.grid(.mtry=seq(16,20,1))
+rf.Grid <- expand.grid(.mtry=seq(18,28,2))
 
 tune.model.list <- list()
 
-for(ntree in c(300)){
+for(ntree in c(250,300,400,500)){
   print(ntree)
   rf.tune <- train(TIPO_ACCIDENTE~., data = accidentes_kaggle_redux, 
                    method = "rf",
