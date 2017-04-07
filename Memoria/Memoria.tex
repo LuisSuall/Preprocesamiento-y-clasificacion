@@ -108,19 +108,25 @@ Vamos a dividir el trabajo en dos grandes secciones. La primera contendrá de ma
 \subsection{Entrega 1}
 
 Entrega de prueba. Se toman 5 columnas sin valores perdidos del conjunto de datos y se utiliza un modelo de tipo 'Random Forest'. Entrega para comprobar que el proceso de subir resultados funciona correctamente.
+\begin{itemize}
+\item \textbf{Resultado en Kaggle público:} 0.56945.
+\item \textbf{Resultado en Kaggle privado:} 0.56511.
+\end{itemize}
 
 \subsection{Entrega 2}
 \begin{itemize}
 \item \textbf{Preprocesamiento:} Tratamiento básico de los valores perdidos. Primero, añadimos una columna booleana por cada columna con datos perdidos que almacena si hemos imputado el dato o si ya se tenía en la base de datos original. Después, imputamos a mano, añadiendo el elemento más común. Eliminamos las columnas "CARRETERA" --- tiene demasiados posibles valores para ser usado directamente ---e "ISLAS" --- requiere procesamiento extra al faltar la isla "HIERRO" en el conjunto de entrenamiento--- . Se transforma la variable "HORA" de "factor" a "numeric".
-\item \textbf{Selección de modelo:} Usamos un modelo XGBoost. Para seleccionar los hiperparámetros, realizamos una validación cruzada de 5 bloques. El mejor resultado --- con hiperpárametros nrounds = 10, max\_depth = 6, eta = 0.01, gamma = 1, colsample\_bytree = 1, min\_child\_weight = 1 y subsample = 1 --- obtuvo un accuracy de 0.8280115 en la validacion cruzada.
+\item \textbf{Selección de modelo:} Usamos un modelo XGBoost. Para seleccionar los hiperparámetros, realizamos una validación cruzada de 5 bloques. El mejor resultado obtuvo un accuracy de 0.8280115 en la validacion cruzada.
 \item \textbf{Resultado en Kaggle público:} 0.82948.
+\item \textbf{Resultado en Kaggle privado:} 0.82625.
 \end{itemize}
 
 \subsection{Entrega 3}
 \begin{itemize}
 \item \textbf{Preprocesamiento:} El mismo de la entrega 2.
-\item \textbf{Selección de modelo:} En este caso, utilizamos un Random Forest. Para la selección de hiperparámetros, se utiliza igualmente una validación cruzada de 5 bloques. El mejor resultado --- con hiperparámetros ntree = 300 y mtry = 18 --- obtuvo un accuracy de 0.8308112 en la validación cruzada.
+\item \textbf{Selección de modelo:} En este caso, utilizamos un Random Forest. Para la selección de hiperparámetros, se utiliza igualmente una validación cruzada de 5 bloques. El mejor resultado obtuvo un accuracy de 0.8308112 en la validación cruzada.
 \item \textbf{Resultado en Kaggle público:} 0.82948.
+\item \textbf{Resultado en Kaggle privado:} 0.82625.
 \end{itemize}
 
 \subsection{Entrega 4}
@@ -128,23 +134,66 @@ Entrega de prueba. Se toman 5 columnas sin valores perdidos del conjunto de dato
 \item \textbf{Preprocesamiento:} Basado en la entrega 2. Se arregla el problema con la variable "ISLA", que pasa a poder usarse. Se arregla un pequeño bug que modificó las etiquetas de los meses del año y los días. Se añaden ratios relativos al número de muertos, heridos graves, heridos leves y vehículos implicados por víctima.
 \item \textbf{Selección de modelo:} Utiliza un modelo Random Forest, pero con menos hiperparámetros que en la entrega 3, centrándonos en la zona de mejores resultados, con el objetivo de poder evaluar rápidamente los diferentes preprocesamientos que se aplican en las siguientes entregas. Tras realizar varios avances en el preprocesamiento, se volverá a probar un gran espacio de hiperparámetros. El mejor resultado obtuvo un accuracy de 0.8301113 en la validación cruzada.
 \item \textbf{Resultado en Kaggle público:} 0.83156.
+\item \textbf{Resultado en Kaggle privado:} 0.82827.
 \end{itemize}
 
 \subsection{Entrega 5}
 \begin{itemize}
 \item \textbf{Preprocesamiento:} Basado en la entrega 4. Se añade el concepto de "punto negro", es decir, las carreteras ---según la variable "CARRETERA"--- con más accidentes. El parámetro que controla el número de accidentes necesario para considerar una carretera peligrosa se fija a 50 y se explorará más adelante.
 \item \textbf{Selección de modelo:} Igual que en entrega 4. El mejor resultado obtuvo un accuracy de 0.8306117 en la validación cruzada.
-\item \textbf{Resultado en Kaggle público:} 0.863126.
+\item \textbf{Resultado en Kaggle público:} 0.83126.
+\item \textbf{Resultado en Kaggle privado:} 0.82857.
 \end{itemize}
 
-\subsection{Entrega 6}
+\subsection{Entrega 6} %%Mejor privado
 \begin{itemize}
 \item \textbf{Preprocesamiento:} Basado en la entrega 5. Se añade una discretización manual de la variable hora en 4 segmentos: "MAÑANA", "TARDE", "NOCHE" y "MADRUGADA". Por el momento se preserva la variable "HORA" pero viendo la cantidad de atributos que empezamos a manejar, puede ser buena idea más adelante probar métodos de selección de características o de reducción de dimensionalidad.
-\item \textbf{Selección de modelo:} Igual que en entrega 4. El mejor resultado obtuvo un accuracy de .....\todo{Faltan datos} en la validación cruzada.
-\item \textbf{Resultado en Kaggle público:} ......\todo{Faltan datos}
+\item \textbf{Selección de modelo:} Igual que en entrega 4. El mejor resultado obtuvo un accuracy de 0.8301113 en la validación cruzada.
+\item \textbf{Resultado en Kaggle público:} 0.83185.
+\item \textbf{Resultado en Kaggle privado:} 0.82918.
+\end{itemize}
+
+\subsection{Entrega 7}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Imput-1 (Sin acond_calzada)
+\item \textbf{Selección de modelo:} CV 0.8301113
+\item \textbf{Resultado en Kaggle público:} 0.83235.
+\item \textbf{Resultado en Kaggle privado:} 0.82746.
+\end{itemize}
+
+\subsection{Entrega 8}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Imput-2 (con)
+\item \textbf{Selección de modelo:} CV 0.8300447
+\item \textbf{Resultado en Kaggle público:} 0.83225.
+\item \textbf{Resultado en Kaggle privado:} 0.82736.
+\end{itemize}
+
+\subsection{Entrega 9} %%Mejor público
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Mismo preprocesamiento que en la entrega 8.
+\item \textbf{Selección de modelo:} Hasta ahora, hemos estado aplicando un modelo random forest para evaluar la utilidad de los preprocesamientos que hemos realizado. Vamos a volver a evaluar un modelo de boosting, XGBoost, con el objetivo de intentar mejorar el modelo directamente. Tras un proceso de selección de parámetros, el mejor resultado con un error de validación cruzada de 0.8331779 fue seleccionado.
+\item \textbf{Resultado en Kaggle público:} 0.83393.
+\item \textbf{Resultado en Kaggle privado:} 0.82857.
+\end{itemize}
+
+\subsection{Entrega 10}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Selección de características sobre el preprocesamiento realizado hasta el momento. Primero apliqué la técnica "Boruta", pero eliminó solo 3 variables y no mostraba ningún cambio significativo en la validación cruzada. Se decide aplicar sobre esta primera selección de características una segunda fase, tomando las 20 características mejor puntuadas según su importancia utilizando el algoritmo rfe del paquete "caret".
+\item \textbf{Selección de modelo:} Mismo modelo que en la entrega 9. El resultado de la validación cruzada es 0.829780.
+\item \textbf{Resultado en Kaggle público:} 0.83057.
+\item \textbf{Resultado en Kaggle privado:} 0.82716.
+\end{itemize}
+
+\subsection{Entrega 11}
+\begin{itemize}
+\item \textbf{Preprocesamiento:} Eliminación de instancias ruidosas. En la entrega anterior, vemos un deterioro de la capacidad predictiva al eliminar atributos. Recuperamos el conjunto entero de atributos para realizar eliminación de ruido. Para ello utilizamos el paquete "NoiseFiltersR" y la función C45IterativeVotingFilter, ya que parece razonable que al ser un algoritmo que utiliza árboles para seleccionar las instancias, pueda comportarse bien con nuestro algoritmo de predicción.
+\item \textbf{Selección de modelo:} Mismo proceso que aplicamos en la entrega 10. Se descarta el resultado de la validación cruzada pues al limpiar el ruido de los datos, el resultado de la validación cruzada no es comparable con los demás obtenidos.
+\item \textbf{Resultado en Kaggle público:} 0.82701.
+\item \textbf{Resultado en Kaggle privado:} 0.82371.
 \end{itemize}
 
 \section{Resumen del modelo final}
-\section{Resultados}
+
 
 \end{document}
